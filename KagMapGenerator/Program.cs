@@ -32,10 +32,11 @@ namespace KagMapGenerator
             var xSize = int.Parse(window.xSize.Text);
             var ySize = int.Parse(window.ySize.Text);
             float freq = int.Parse(window.frequencyInput.Text) / 1000f;
-            float steepness = int.Parse(window.steepnessInput.Text) / 100f;
+            float steepness = int.Parse(window.steepnessInput.Text);
             int seed = int.Parse(window.seedText.Text);
             bool randomSeed = window.randomSeed.Checked;
             bool cave = window.cave.Checked;
+            bool island = window.island.Checked;
             int grassChance = int.Parse(window.grassChance.Text);
             int redzone = int.Parse(window.redzone.Text);
             int flagCount = int.Parse(window.flagCount.Text);
@@ -45,7 +46,7 @@ namespace KagMapGenerator
                 seed = new Random().Next();
             }
             window.seedText.Text = seed.ToString();
-            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, grassChance, redzone, flagCount, flagInterval);
+            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, redzone, flagCount, flagInterval);
         }
     }
 }

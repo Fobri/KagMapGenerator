@@ -51,6 +51,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.flagInterval = new System.Windows.Forms.MaskedTextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.island = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.mapImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -215,7 +216,7 @@
             this.grassChance.Name = "grassChance";
             this.grassChance.Size = new System.Drawing.Size(69, 20);
             this.grassChance.TabIndex = 16;
-            this.grassChance.Text = "15";
+            this.grassChance.Text = "50";
             this.grassChance.ValidatingType = typeof(int);
             // 
             // label7
@@ -276,7 +277,7 @@
             this.flagInterval.Name = "flagInterval";
             this.flagInterval.Size = new System.Drawing.Size(69, 20);
             this.flagInterval.TabIndex = 22;
-            this.flagInterval.Text = "5";
+            this.flagInterval.Text = "10";
             this.flagInterval.ValidatingType = typeof(int);
             // 
             // button1
@@ -289,11 +290,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // island
+            // 
+            this.island.AutoSize = true;
+            this.island.Location = new System.Drawing.Point(12, 274);
+            this.island.Name = "island";
+            this.island.Size = new System.Drawing.Size(54, 17);
+            this.island.TabIndex = 25;
+            this.island.Text = "Island";
+            this.island.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.island);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.flagInterval);
@@ -351,6 +363,7 @@
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.MaskedTextBox flagInterval;
         private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.CheckBox island;
     }
 }
 
