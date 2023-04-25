@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +23,6 @@ namespace KagMapGenerator
             Application.SetCompatibleTextRenderingDefault(false);
             window = new Form1();
             window.genButton.MouseClick += Generate;
-
             generator = new MapImageGenerator();
             Application.Run(window);
         }
@@ -33,20 +33,27 @@ namespace KagMapGenerator
             var ySize = int.Parse(window.ySize.Text);
             float freq = int.Parse(window.frequencyInput.Text) / 1000f;
             float steepness = int.Parse(window.steepnessInput.Text);
-            int seed = int.Parse(window.seedText.Text);
             bool randomSeed = window.randomSeed.Checked;
+            int seed = 0;
+            if (randomSeed)
+            {
+                seed = new Random().Next(0,99999);
+                window.seedText.Text = seed.ToString();
+            }
+            else
+            {
+                seed = int.Parse(window.seedText.Text);
+            }
             bool cave = window.cave.Checked;
             bool island = window.island.Checked;
             int grassChance = int.Parse(window.grassChance.Text);
             int redzone = int.Parse(window.redzone.Text);
             int flagCount = int.Parse(window.flagCount.Text);
             int flagInterval = int.Parse(window.flagInterval.Text);
-            if (randomSeed)
-            {
-                seed = new Random().Next();
-            }
-            window.seedText.Text = seed.ToString();
-            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, redzone, flagCount, flagInterval);
+            int stoneChance = int.Parse(window.stoneChance.Text);
+
+            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval);
+            window.mapImage.Update();
         }
     }
 }

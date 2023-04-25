@@ -52,6 +52,8 @@
             this.flagInterval = new System.Windows.Forms.MaskedTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.island = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.stoneChance = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.mapImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +68,7 @@
             this.mapImage.TabIndex = 0;
             this.mapImage.TabStop = false;
             this.mapImage.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.mapImage.Paint += new System.Windows.Forms.PaintEventHandler(this.mapImage_Paint);
             // 
             // label1
             // 
@@ -293,18 +296,40 @@
             // island
             // 
             this.island.AutoSize = true;
-            this.island.Location = new System.Drawing.Point(12, 274);
+            this.island.Location = new System.Drawing.Point(15, 274);
             this.island.Name = "island";
             this.island.Size = new System.Drawing.Size(54, 17);
             this.island.TabIndex = 25;
             this.island.Text = "Island";
             this.island.UseVisualStyleBackColor = true;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(9, 220);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 15);
+            this.label10.TabIndex = 27;
+            this.label10.Text = "Stone chance";
+            // 
+            // stoneChance
+            // 
+            this.stoneChance.Location = new System.Drawing.Point(12, 238);
+            this.stoneChance.Mask = "00000";
+            this.stoneChance.Name = "stoneChance";
+            this.stoneChance.Size = new System.Drawing.Size(69, 20);
+            this.stoneChance.TabIndex = 26;
+            this.stoneChance.Text = "50";
+            this.stoneChance.ValidatingType = typeof(int);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.stoneChance);
             this.Controls.Add(this.island);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
@@ -364,6 +389,8 @@
         public System.Windows.Forms.MaskedTextBox flagInterval;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.CheckBox island;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.MaskedTextBox stoneChance;
     }
 }
 

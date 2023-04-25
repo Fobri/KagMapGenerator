@@ -120,7 +120,7 @@ namespace KagMapGenerator
             { "Gray Spawn", Color.FromArgb(151, 167, 146) },
             { "redbarrier", Color.FromArgb(228,55,113) },
             { "redflag", Color.FromArgb(200,0,0) },
-            { "blueflag", Color.FromArgb(0,200,200) },
+            { "blueflag", Color.FromArgb(0,200,200) }
 
         };
 
@@ -134,7 +134,7 @@ namespace KagMapGenerator
         int xSize;
         int ySize;
 
-        public Bitmap GetMapImage(int xSize, int ySize, float freq, float steepness, int seed, bool caveMap, bool islandMap, int grassChance, int redzone, int flagCount, int flagInterval)
+        public Bitmap GetMapImage(int xSize, int ySize, float freq, float steepness, int seed, bool caveMap, bool islandMap, int grassChance, int stoneChance, int redzone, int flagCount, int flagInterval)
         {
             this.xSize = xSize;
             this.ySize = ySize;
@@ -142,6 +142,9 @@ namespace KagMapGenerator
             rng = new Random(seed);
             Bitmap result = new Bitmap(xSize, ySize);
             result.SetResolution(70f, 70f);
+
+            int treeAmount = rng.Next(2, 5);
+            int treeInterval = rng.Next(5, 15);
 
             int xOffset = rng.Next(99999);
             int yOffset = rng.Next(99999);
@@ -164,7 +167,9 @@ namespace KagMapGenerator
             }
             bool addedTents = false;
             int flagsPlaced = 0;
+            int treesPlaced = 0;
             int2 lastIntervalPos = new int2(-999, -999);
+            int2 lastTreePos = new int2(-999, -999);
             for (int x = 0; x < xSize / 2; x++)
             {
                 bool foundSky = false;
@@ -177,9 +182,8 @@ namespace KagMapGenerator
                     if(pixel == colors["Sky"])
                     {
                         foundSky = true;
-                        continue;
                     }
-                    if (colors["Dirt"] == pixel)
+                    else if (colors["Dirt"] == pixel)
                     {
                         if (foundSky && !foundFirstDirt)
                         {
@@ -187,6 +191,7 @@ namespace KagMapGenerator
                             foundFirstDirt = true;
                             if (!addedTents && x > 10 && int2.distance(lastIntervalPos, new int2(x, y)) > flagInterval && TryAddTents(x, y, result))
                             {
+                                lastIntervalPos = new int2(x, y);
                                 addedTents = true;
                                 continue;
                             }
@@ -199,7 +204,14 @@ namespace KagMapGenerator
                             if (rng.Next(0, 100) < grassChance)
                             {
                                 if (result.GetPixel(x, y - 1) == colors["Bedrock"]) continue;
-                                var col = colors["Grass"];
+                                Color col;
+                                if (x > 15 && int2.distance(lastTreePos, new int2(x, y)) > treeInterval && treesPlaced < treeAmount)
+                                {
+                                    treesPlaced++;
+                                    lastTreePos = new int2(x, y);
+                                    col = colors["Tree"];
+                                }else
+                                    col = colors["Grass"];
                                 AddBlock(col, x, y - 1, result);
                             }
                         }
@@ -221,14 +233,42 @@ namespace KagMapGenerator
                             if(noiseGenerator.GetNoise(x+5321, x+9112) > 0.4f)
                             {
                                 noiseGenerator.SetFrequency(freq * 10f);
-                                if(noiseGenerator.GetNoise(x+123, y+4278) > 0.5f)
-                                {
-                                    AddBlock(colors["Stone"], x, y, result);
-                                }else if (noiseGenerator.GetNoise(x + 123, y + 4278) > 0.2f)
+                                float val = noiseGenerator.GetNoise(x + 123, y + 4278) + 1;
+                                if (val * 50 < stoneChance - 20)
                                 {
                                     AddBlock(colors["Thick Stone"], x, y, result);
+                                }else if (val * 50 < stoneChance)
+                                {
+                                    AddBlock(colors["Stone"], x, y, result);
                                 }
                             }
+                        }
+                    }
+                    if(pixel == colors["Sky"])
+                    {
+                        if (HasBlockInRadius(x, y, result, colors["Dirt"], 1))
+                        {
+
+                            AddBlock(colors["Dirt Background"], x, y, result);
+                            noiseGenerator.SetFrequency(freq * 10f);
+                            if (noiseGenerator.GetNoise(x + 5363, x + 2534) > 0f)
+                            {
+                                int radius = rng.Next(3, 5);
+                                for(int s = -radius; s < radius; s++)
+                                {
+                                    for (int j = -radius; j < radius; j++)
+                                    {
+                                        if (!IsValidCoord(x + s, y + j)) continue;
+                                        if (!HasBlockInRadius(x + s, y + j, result, colors["Dirt Background"], 1) || result.GetPixel(x + s, y + j) != colors["Sky"]) continue;
+                                        noiseGenerator.SetFrequency(freq * 10f);
+                                        if (noiseGenerator.GetNoise(x + 1234 + s, y + 7522 + j) > 0f)
+                                        {
+                                            AddBlock(colors["Dirt Background"], x + s, y + j, result);
+                                        }
+                                    }
+                                }
+                            }
+                            
                         }
                     }
 
@@ -241,7 +281,7 @@ namespace KagMapGenerator
 
         void AddBlock(Color col, int x, int y, Bitmap result, bool mirror = true)
         {
-            if (x < 0 || y < 0 || x == xSize-1 || y == xSize-1) return;
+            if (x < 0 || y < 0 || x >= xSize-1 || y >= xSize-1) return;
             result.SetPixel(x, y, col);
             if(mirror)
                 result.SetPixel(xSize - x - 1, y, col);

@@ -64,7 +64,7 @@ namespace KagMapGenerator
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Png|*.png";
             saveFileDialog1.Title = "Save map";
-            saveFileDialog1.FileName = "Saved Kag map";
+            saveFileDialog1.FileName = "mykagmap";
             saveFileDialog1.ShowDialog();
 
             // If the file name is not an empty string open it for saving.
@@ -86,6 +86,17 @@ namespace KagMapGenerator
 
                 fs.Close();
             }
+        }
+
+        private void mapImage_Paint(object sender, PaintEventArgs e)
+        {
+            // Disable image interpolation and anti-aliasing
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+
+            // Draw the image in the PictureBox
+            if (mapImage.Image == null) return;
+            e.Graphics.DrawImage(mapImage.Image, mapImage.ClientRectangle);
         }
     }
 }
