@@ -50,6 +50,7 @@
             this.flagCount = new System.Windows.Forms.MaskedTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.flagInterval = new System.Windows.Forms.MaskedTextBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.mapImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -278,11 +279,22 @@
             this.flagInterval.Text = "5";
             this.flagInterval.ValidatingType = typeof(int);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(713, 415);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.flagInterval);
             this.Controls.Add(this.label8);
@@ -338,6 +350,7 @@
         public System.Windows.Forms.MaskedTextBox flagCount;
         private System.Windows.Forms.Label label9;
         public System.Windows.Forms.MaskedTextBox flagInterval;
+        private System.Windows.Forms.Button button1;
     }
 }
 
