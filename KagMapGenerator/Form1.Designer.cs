@@ -180,6 +180,7 @@
             this.frequencyInput.TabIndex = 11;
             this.frequencyInput.Text = "15";
             this.frequencyInput.ValidatingType = typeof(int);
+            this.frequencyInput.TextChanged += new System.EventHandler(this.frequencyInput_TextChanged);
             // 
             // label4
             // 
@@ -210,6 +211,7 @@
             this.steepnessInput.TabIndex = 13;
             this.steepnessInput.Text = "1";
             this.steepnessInput.ValidatingType = typeof(int);
+            this.steepnessInput.TextChanged += new System.EventHandler(this.steepnessInput_TextChanged);
             // 
             // cave
             // 
@@ -240,6 +242,7 @@
             this.grassChance.TabIndex = 16;
             this.grassChance.Text = "50";
             this.grassChance.ValidatingType = typeof(int);
+            this.grassChance.TextChanged += new System.EventHandler(this.grassChance_TextChanged);
             // 
             // label7
             // 
@@ -261,6 +264,7 @@
             this.redzone.TabIndex = 18;
             this.redzone.Text = "60";
             this.redzone.ValidatingType = typeof(int);
+            this.redzone.TextChanged += new System.EventHandler(this.redzone_TextChanged);
             // 
             // label8
             // 
@@ -281,6 +285,7 @@
             this.flagCount.TabIndex = 20;
             this.flagCount.Text = "2";
             this.flagCount.ValidatingType = typeof(int);
+            this.flagCount.TextChanged += new System.EventHandler(this.flagCount_TextChanged);
             // 
             // label9
             // 
@@ -301,6 +306,7 @@
             this.flagInterval.TabIndex = 22;
             this.flagInterval.Text = "10";
             this.flagInterval.ValidatingType = typeof(int);
+            this.flagInterval.TextChanged += new System.EventHandler(this.flagInterval_TextChanged);
             // 
             // button1
             // 
@@ -342,6 +348,7 @@
             this.stoneChance.TabIndex = 26;
             this.stoneChance.Text = "50";
             this.stoneChance.ValidatingType = typeof(int);
+            this.stoneChance.TextChanged += new System.EventHandler(this.stoneChance_TextChanged);
             // 
             // label11
             // 
@@ -392,6 +399,7 @@
             this.bedrockDepth.TabIndex = 31;
             this.bedrockDepth.Text = "4";
             this.bedrockDepth.ValidatingType = typeof(int);
+            this.bedrockDepth.TextChanged += new System.EventHandler(this.bedrockDepth_TextChanged);
             // 
             // label15
             // 
@@ -412,6 +420,7 @@
             this.bedrockRoughness.TabIndex = 33;
             this.bedrockRoughness.Text = "50";
             this.bedrockRoughness.ValidatingType = typeof(int);
+            this.bedrockRoughness.TextChanged += new System.EventHandler(this.bedrockRoughness_TextChanged);
             // 
             // label16
             // 
@@ -442,6 +451,7 @@
             this.treeInterval.TabIndex = 38;
             this.treeInterval.Text = "10";
             this.treeInterval.ValidatingType = typeof(int);
+            this.treeInterval.TextChanged += new System.EventHandler(this.treeInterval_TextChanged);
             // 
             // label18
             // 
@@ -462,6 +472,7 @@
             this.treeCount.TabIndex = 36;
             this.treeCount.Text = "4";
             this.treeCount.ValidatingType = typeof(int);
+            this.treeCount.TextChanged += new System.EventHandler(this.treeCount_TextChanged);
             // 
             // label19
             // 
@@ -482,6 +493,7 @@
             this.tentEdgeDst.TabIndex = 40;
             this.tentEdgeDst.Text = "10";
             this.tentEdgeDst.ValidatingType = typeof(int);
+            this.tentEdgeDst.TextChanged += new System.EventHandler(this.tentEdgeDst_TextChanged);
             // 
             // label20
             // 
@@ -502,6 +514,7 @@
             this.midshopCount.TabIndex = 42;
             this.midshopCount.Text = "1";
             this.midshopCount.ValidatingType = typeof(int);
+            this.midshopCount.TextChanged += new System.EventHandler(this.midshopCount_TextChanged);
             // 
             // Form1
             // 

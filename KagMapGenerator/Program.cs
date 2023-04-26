@@ -31,15 +31,20 @@ namespace KagMapGenerator
 
         static void Generate(object sender, EventArgs e)
         {
+            Generate(window.randomSeed.Checked);
+        }
+
+        public static void Generate(bool randomSeed)
+        {
+
             var xSize = int.Parse(window.xSize.Text);
             var ySize = int.Parse(window.ySize.Text);
             float freq = int.Parse(window.frequencyInput.Text) / 1000f;
             float steepness = int.Parse(window.steepnessInput.Text);
-            bool randomSeed = window.randomSeed.Checked;
             int seed = 0;
             if (randomSeed)
             {
-                seed = new Random().Next(0,99999);
+                seed = new Random().Next(0, 99999);
                 window.seedText.Text = seed.ToString();
             }
             else

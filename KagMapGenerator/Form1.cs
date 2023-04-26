@@ -98,5 +98,70 @@ namespace KagMapGenerator
             if (mapImage.Image == null) return;
             e.Graphics.DrawImage(mapImage.Image, mapImage.ClientRectangle);
         }
+
+        private void steepnessInput_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void frequencyInput_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void stoneChance_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void grassChance_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void bedrockRoughness_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void bedrockDepth_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void treeInterval_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void treeCount_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void midshopCount_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void flagInterval_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void flagCount_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void redzone_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
+
+        private void tentEdgeDst_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false);
+        }
     }
 }
