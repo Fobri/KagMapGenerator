@@ -120,7 +120,13 @@ namespace KagMapGenerator
             { "Gray Spawn", Color.FromArgb(151, 167, 146) },
             { "redbarrier", Color.FromArgb(228,55,113) },
             { "redflag", Color.FromArgb(200,0,0) },
-            { "blueflag", Color.FromArgb(0,200,200) }
+            { "blueflag", Color.FromArgb(0,200,200) },
+            { "goldquarry", Color.FromArgb(255,151,85) },
+            { "ballista", Color.FromArgb(54,188,117) },
+            { "catapult", Color.FromArgb(136,55,190) },
+            { "midshop3", Color.FromArgb(85,74,209) },
+            { "midshop4", Color.FromArgb(85,0,209) },
+            { "nomidshop", Color.FromArgb(85,74,74) },
 
         };
 
@@ -134,20 +140,19 @@ namespace KagMapGenerator
         int xSize;
         int ySize;
 
-        public Bitmap GetMapImage(int xSize, int ySize, float freq, float steepness, int seed, bool caveMap, bool islandMap, int grassChance, int stoneChance, int redzone, int flagCount, int flagInterval)
+        public Bitmap GetMapImage(int xSize, int ySize, float freq, float steepness, int seed, bool caveMap, bool islandMap, int grassChance, int stoneChance, int redzone, int flagCount, int flagInterval, int bedrockDepth, float bedrockRoughness, int treeAmount, int treeInterval, int tentEdgeDst, int midShopCount)
         {
             this.xSize = xSize;
             this.ySize = ySize;
             noiseGenerator.SetFrequency(freq);
             rng = new Random(seed);
             Bitmap result = new Bitmap(xSize, ySize);
-            result.SetResolution(70f, 70f);
-
-            int treeAmount = rng.Next(2, 5);
-            int treeInterval = rng.Next(5, 15);
+            result.SetResolution(xSize, ySize);
 
             int xOffset = rng.Next(99999);
             int yOffset = rng.Next(99999);
+
+            int midShopInterval = (midShopCount == 0) ? 999999 : (xSize/2 - redzone * ((midShopCount == 1) ? 0 : 1)) / midShopCount * ((midShopCount > 1) ? 2 : 1) - 1;
 
             for(int y = 0; y < ySize; y++)
             {
@@ -189,7 +194,7 @@ namespace KagMapGenerator
                         {
                             if (y == 0) continue;
                             foundFirstDirt = true;
-                            if (!addedTents && x > 10 && int2.distance(lastIntervalPos, new int2(x, y)) > flagInterval && TryAddTents(x, y, result))
+                            if (!addedTents && x > tentEdgeDst && int2.distance(lastIntervalPos, new int2(x, y)) > flagInterval && TryAddTents(x, y, result))
                             {
                                 lastIntervalPos = new int2(x, y);
                                 addedTents = true;
@@ -203,7 +208,7 @@ namespace KagMapGenerator
                             }
                             if (rng.Next(0, 100) < grassChance)
                             {
-                                if (result.GetPixel(x, y - 1) == colors["Bedrock"]) continue;
+                                if (result.GetPixel(x, y - 1) == colors["Bedrock"] || int2.distance(new int2(x,y), lastIntervalPos) < treeInterval) continue;
                                 Color col;
                                 if (x > 15 && int2.distance(lastTreePos, new int2(x, y)) > treeInterval && treesPlaced < treeAmount)
                                 {
@@ -214,15 +219,21 @@ namespace KagMapGenerator
                                     col = colors["Grass"];
                                 AddBlock(col, x, y - 1, result);
                             }
+
+                            if (x > redzone && x % midShopInterval == 0)
+                            {
+                                var col = (xSize % 2 == 0) ? colors["midshop4"] : colors["midshop3"];
+                                AddBlock(col, x, y - 1, result, midShopCount > 1);
+                            }
                         }
                         noiseGenerator.SetFrequency(freq * 10);
                         bool addedBedrock = false;
-                        if (!HasBlockInRadius(x, y, result, colors["Sky"], 4))
+                        if (!HasBlockInRadius(x, y, result, colors["Sky"], bedrockDepth))
                         {
                             addedBedrock = true;
                             AddBlock(colors["Bedrock"], x, y, result);
                         }
-                        else if (!HasBlockInRadius(x, y, result, colors["Sky"], 2) && noiseGenerator.GetNoise(x,y) > 0f)
+                        else if (!HasBlockInRadius(x, y, result, colors["Sky"], bedrockDepth - 2) && noiseGenerator.GetNoise(x * bedrockRoughness,y * bedrockRoughness) > 0f)
                         {
                             addedBedrock = true;
                             AddBlock(colors["Bedrock"], x, y, result);
@@ -275,6 +286,10 @@ namespace KagMapGenerator
                 }
             }
             AddRedzone(redzone, result);
+            if(midShopCount == 0)
+            {
+                AddNoMidshop(redzone, result);
+            }
 
             return result;
         }
@@ -296,9 +311,30 @@ namespace KagMapGenerator
 
         void AddRedzone(int x, Bitmap map)
         {
-            int y = ySize / 5;
-            var col = colors["redbarrier"];
-            AddBlock(col, x, y, map);
+            AddAnywhereOnYAxis(x, map, colors["redbarrier"]);
+        }
+        void AddNoMidshop(int x, Bitmap map)
+        {
+            AddAnywhereOnYAxis(x, map, colors["nomidshop"], false);
+        }
+        void AddAnywhereOnYAxis(int x, Bitmap map, Color col, bool mirror = true)
+        {
+            for (int y = 0; y < ySize; y++)
+            {
+                if (map.GetPixel(x, y) == colors["Sky"])
+                {
+                    AddBlock(col, x, y, map, mirror);
+                    return;
+                }
+            }
+            for (int y = 0; y < ySize; y++)
+            {
+                if (map.GetPixel(x, y) == colors["Bedrock"])
+                {
+                    AddBlock(col, x, y, map, mirror);
+                    return;
+                }
+            }
         }
 
         bool TryAddTents(int x, int y, Bitmap map)
@@ -306,14 +342,14 @@ namespace KagMapGenerator
             if (!IsValidCoord(x, y)) return false;
             var dirt = colors["Dirt"];
             var sky = colors["Sky"];
-            if(map.GetPixel(x-1, y) == dirt
-            && map.GetPixel(x+1, y) == dirt
-            && map.GetPixel(x, y - 1) == sky
-            && map.GetPixel(x + 1, y - 1) == sky
-            && map.GetPixel(x - 1, y - 1) == sky)
+            if(map.GetPixel(x+1, y) == dirt
+            && map.GetPixel(x+2, y) == dirt
+            && map.GetPixel(x, y - 1) != dirt
+            && map.GetPixel(x + 1, y - 1) != dirt
+            && map.GetPixel(x + 2, y - 1) != dirt)
             {
-                AddBlock(colors["Blue Spawn (Main)"], x, y - 1, map, false);
-                AddBlock(colors["Red Spawn (Main)"], xSize - x - 1, y - 1, map, false);
+                AddBlock(colors["Blue Spawn (Main)"], x + 1, y - 1, map, false);
+                AddBlock(colors["Red Spawn (Main)"], xSize - x - 2, y - 1, map, false);
                 return true;
             }
             return false;
@@ -323,19 +359,18 @@ namespace KagMapGenerator
         {
             if (!IsValidCoord(x, y)) return false;
             var dirt = colors["Dirt"];
-            var sky = colors["Sky"];
-            if (map.GetPixel(x - 1, y) == dirt
-            && map.GetPixel(x + 1, y) == dirt
-            && map.GetPixel(x, y - 1) == sky
-            && map.GetPixel(x + 1, y - 1) == sky
-            && map.GetPixel(x - 1, y - 1) == sky)
+            if (map.GetPixel(x + 1, y) == dirt
+            && map.GetPixel(x + 2, y) == dirt
+            && map.GetPixel(x, y - 1) != dirt
+            && map.GetPixel(x + 1, y - 1) != dirt
+            && map.GetPixel(x + 2, y - 1) != dirt)
             {
-                AddBlock(colors["blueflag"], x, y - 2, map, false);
-                AddBlock(colors["redflag"], xSize - x - 1, y - 2, map, false);
+                AddBlock(colors["blueflag"], x +1, y - 2, map, false);
+                AddBlock(colors["redflag"], xSize - x - 2, y - 2, map, false);
 
-                AddBlock(colors["Bedrock"], x - 1, y, map);
-                AddBlock(colors["Bedrock"], x, y, map);
                 AddBlock(colors["Bedrock"], x + 1, y, map);
+                AddBlock(colors["Bedrock"], x, y, map);
+                AddBlock(colors["Bedrock"], x + 2, y, map);
                 return true;
             }
             return false;

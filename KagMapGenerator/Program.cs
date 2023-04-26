@@ -16,6 +16,7 @@ namespace KagMapGenerator
         /// </summary>
         static Form1 window;
         static MapImageGenerator generator;
+        static int originalImageSize;
         [STAThread]
         static void Main()
         {
@@ -24,6 +25,7 @@ namespace KagMapGenerator
             window = new Form1();
             window.genButton.MouseClick += Generate;
             generator = new MapImageGenerator();
+            originalImageSize = window.mapImage.Size.Width;
             Application.Run(window);
         }
 
@@ -51,8 +53,15 @@ namespace KagMapGenerator
             int flagCount = int.Parse(window.flagCount.Text);
             int flagInterval = int.Parse(window.flagInterval.Text);
             int stoneChance = int.Parse(window.stoneChance.Text);
-
-            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval);
+            int bedrockDepth = int.Parse(window.bedrockDepth.Text);
+            float bedrockRoughness = int.Parse(window.bedrockRoughness.Text) / 50f;
+            int treeCount = int.Parse(window.treeCount.Text);
+            int treeInterval = int.Parse(window.treeInterval.Text);
+            int tentEdgeDst = int.Parse(window.tentEdgeDst.Text);
+            int midshopCount = int.Parse(window.midshopCount.Text);
+            //int multiplier = originalImageSize / xSize;
+            //window.mapImage.Size = new Size(xSize * multiplier, ySize * multiplier);
+            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval, bedrockDepth, bedrockRoughness, treeCount, treeInterval, tentEdgeDst, midshopCount);
             window.mapImage.Update();
         }
     }
