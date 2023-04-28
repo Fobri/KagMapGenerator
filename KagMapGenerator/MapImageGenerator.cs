@@ -22,11 +22,13 @@ namespace KagMapGenerator
 
         int xSize;
         int ySize;
+        int groundLevel;
 
-        public Bitmap GetMapImage(int xSize, int ySize, float freq, float steepness, int seed, bool caveMap, bool islandMap, int grassChance, int stoneChance, int redzone, int flagCount, int flagInterval, int bedrockDepth, float bedrockRoughness, int treeAmount, int treeInterval, int tentEdgeDst, int midShopCount, out int2 lastFlagPos)
+        public Bitmap GetMapImage(int xSize, int ySize, float freq, float steepness, int seed, bool caveMap, bool islandMap, int grassChance, int stoneChance, int redzone, int flagCount, int flagInterval, int bedrockDepth, float bedrockRoughness, int treeAmount, int treeInterval, int tentEdgeDst, int midShopCount, int groundLevel, float flatness, out int2 lastFlagPos)
         {
             this.xSize = xSize;
             this.ySize = ySize;
+            this.groundLevel = groundLevel;
             noiseGenerator.SetFrequency(freq);
             rng = new Random(seed);
             Bitmap result = new Bitmap(xSize, ySize);
@@ -44,7 +46,7 @@ namespace KagMapGenerator
                     int xSamplePos = x + xOffset;
                     float bedrockLevel = GetBedrockLevel(xSamplePos);
                     float dirtLevel = GetBedrockLevel(xSamplePos * steepness + 654) - 10;
-                    var dstFromDirt = 1 - Math.Max(Math.Abs(dirtLevel - y) * 0.1f, 0);
+                    var dstFromDirt = 1 - Math.Max(Math.Abs(dirtLevel - y) * 0.1f, 0) * flatness;
                     float val = dstFromDirt * (caveMap ? dstFromDirt : 1f) + dstFromDirt * 1 - SampleNoise(xSamplePos, ySamplePos) * 5 + (SampleNoise(xSamplePos + 231, ySamplePos + 53224) * y * 0.01f);
                     Color col;
                     //if (y > bedrockLevel) col = Data.colors["Bedrock"];
@@ -116,7 +118,7 @@ namespace KagMapGenerator
                             addedBedrock = true;
                             AddBlock(Data.colors["Bedrock"], x, y, result);
                         }
-                        else if (!HasBlockInRadius(x, y, result, Data.colors["Sky"], bedrockDepth - 2) && noiseGenerator.GetNoise(x * bedrockRoughness,y * bedrockRoughness) > 0f)
+                        else if (!HasBlockInRadius(x, y, result, Data.colors["Sky"], bedrockDepth - 2) && SampleNoise(x * bedrockRoughness,y * bedrockRoughness) > 0f)
                         {
                             addedBedrock = true;
                             AddBlock(Data.colors["Bedrock"], x, y, result);
@@ -124,10 +126,10 @@ namespace KagMapGenerator
                         if (!addedBedrock)
                         {
                             noiseGenerator.SetFrequency(freq);
-                            if(noiseGenerator.GetNoise(x+5321, x+9112) > 0.4f)
+                            if(SampleNoise(x+5321, y+9112) > 0.4f)
                             {
                                 noiseGenerator.SetFrequency(freq * 10f);
-                                float val = noiseGenerator.GetNoise(x + 123, y + 4278) + 1;
+                                float val = SampleNoise(x + 123, y + 4278) + 1;
                                 if (val * 50 < stoneChance - 20)
                                 {
                                     AddBlock(Data.colors["Thick Stone"], x, y, result);
@@ -145,7 +147,7 @@ namespace KagMapGenerator
 
                             AddBlock(Data.colors["Dirt Background"], x, y, result);
                             noiseGenerator.SetFrequency(freq * 10f);
-                            if (noiseGenerator.GetNoise(x + 5363, x + 2534) > 0f)
+                            if (SampleNoise(x + 5363, y + 2534) > 0f)
                             {
                                 int radius = rng.Next(3, 5);
                                 for(int s = -radius; s < radius; s++)
@@ -155,7 +157,7 @@ namespace KagMapGenerator
                                         if (!IsValidCoord(x + s, y + j)) continue;
                                         if (!HasBlockInRadius(x + s, y + j, result, Data.colors["Dirt Background"], 1) || result.GetPixel(x + s, y + j) != Data.colors["Sky"]) continue;
                                         noiseGenerator.SetFrequency(freq * 10f);
-                                        if (noiseGenerator.GetNoise(x + 1234 + s, y + 7522 + j) > 0f)
+                                        if (SampleNoise(x + 1234 + s, y + 7522 + j) > 0f)
                                         {
                                             AddBlock(Data.colors["Dirt Background"], x + s, y + j, result);
                                         }
@@ -179,7 +181,7 @@ namespace KagMapGenerator
 
         void AddBlock(Color col, int x, int y, Bitmap result, bool mirror = true)
         {
-            if (x < 0 || y < 0 || x >= xSize-1 || y >= xSize-1) return;
+            if (x < 0 || y < 0 || x > xSize-1 || y > ySize-1) return;
             result.SetPixel(x, y, col);
             if(mirror)
                 result.SetPixel(xSize - x - 1, y, col);
@@ -189,7 +191,7 @@ namespace KagMapGenerator
         {
             float baseCurve = Sin(x * 0.1f + Sin(x * 0.1f)) * 10f * Sin(0.001f);
             //baseCurve += (float)Math.Sin(x * rng.NextDouble());
-            return (baseCurve + ySize / 1.5f);
+            return (baseCurve + ySize / 1.5f) + groundLevel;
         }
 
         void AddRedzone(int x, Bitmap map)
@@ -281,8 +283,9 @@ namespace KagMapGenerator
             return x >= 0 && y >= 0 && x < xSize && y < ySize;
         }
 
-        float SampleNoise(int x, int y)
+        float SampleNoise(float x, float y)
         {
+            y -= groundLevel;
             return noiseGenerator.GetNoise(x, y);
         }
 

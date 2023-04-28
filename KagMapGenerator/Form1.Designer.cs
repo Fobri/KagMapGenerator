@@ -78,6 +78,10 @@
             this.baseSizeX = new System.Windows.Forms.MaskedTextBox();
             this.baseSizeY = new System.Windows.Forms.MaskedTextBox();
             this.randomizeBaseSeed = new System.Windows.Forms.CheckBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.surfaceLevel = new System.Windows.Forms.MaskedTextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.flatness = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.mapImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -235,7 +239,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(15, 166);
+            this.label6.Location = new System.Drawing.Point(15, 229);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 17;
@@ -243,7 +247,7 @@
             // 
             // grassChance
             // 
-            this.grassChance.Location = new System.Drawing.Point(15, 184);
+            this.grassChance.Location = new System.Drawing.Point(15, 247);
             this.grassChance.Mask = "00000";
             this.grassChance.Name = "grassChance";
             this.grassChance.Size = new System.Drawing.Size(69, 20);
@@ -341,7 +345,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(123, 166);
+            this.label10.Location = new System.Drawing.Point(123, 229);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(82, 15);
             this.label10.TabIndex = 27;
@@ -349,7 +353,7 @@
             // 
             // stoneChance
             // 
-            this.stoneChance.Location = new System.Drawing.Point(126, 184);
+            this.stoneChance.Location = new System.Drawing.Point(126, 247);
             this.stoneChance.Mask = "00000";
             this.stoneChance.Name = "stoneChance";
             this.stoneChance.Size = new System.Drawing.Size(69, 20);
@@ -372,7 +376,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(54, 146);
+            this.label12.Location = new System.Drawing.Point(54, 209);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(88, 15);
             this.label12.TabIndex = 29;
@@ -392,7 +396,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(12, 209);
+            this.label14.Location = new System.Drawing.Point(12, 272);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(86, 15);
             this.label14.TabIndex = 32;
@@ -400,7 +404,7 @@
             // 
             // bedrockDepth
             // 
-            this.bedrockDepth.Location = new System.Drawing.Point(12, 227);
+            this.bedrockDepth.Location = new System.Drawing.Point(12, 290);
             this.bedrockDepth.Mask = "00000";
             this.bedrockDepth.Name = "bedrockDepth";
             this.bedrockDepth.Size = new System.Drawing.Size(69, 20);
@@ -413,7 +417,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(111, 209);
+            this.label15.Location = new System.Drawing.Point(111, 272);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(113, 15);
             this.label15.TabIndex = 34;
@@ -421,7 +425,7 @@
             // 
             // bedrockRoughness
             // 
-            this.bedrockRoughness.Location = new System.Drawing.Point(126, 227);
+            this.bedrockRoughness.Location = new System.Drawing.Point(126, 290);
             this.bedrockRoughness.Mask = "00000";
             this.bedrockRoughness.Name = "bedrockRoughness";
             this.bedrockRoughness.Size = new System.Drawing.Size(69, 20);
@@ -444,7 +448,7 @@
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(123, 261);
+            this.label17.Location = new System.Drawing.Point(123, 324);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(74, 15);
             this.label17.TabIndex = 39;
@@ -452,7 +456,7 @@
             // 
             // treeInterval
             // 
-            this.treeInterval.Location = new System.Drawing.Point(126, 279);
+            this.treeInterval.Location = new System.Drawing.Point(126, 342);
             this.treeInterval.Mask = "00000";
             this.treeInterval.Name = "treeInterval";
             this.treeInterval.Size = new System.Drawing.Size(69, 20);
@@ -465,7 +469,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(12, 261);
+            this.label18.Location = new System.Drawing.Point(12, 324);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(61, 15);
             this.label18.TabIndex = 37;
@@ -473,7 +477,7 @@
             // 
             // treeCount
             // 
-            this.treeCount.Location = new System.Drawing.Point(12, 279);
+            this.treeCount.Location = new System.Drawing.Point(12, 342);
             this.treeCount.Mask = "00000";
             this.treeCount.Name = "treeCount";
             this.treeCount.Size = new System.Drawing.Size(69, 20);
@@ -507,7 +511,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(12, 308);
+            this.label20.Location = new System.Drawing.Point(12, 371);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(88, 15);
             this.label20.TabIndex = 43;
@@ -515,7 +519,7 @@
             // 
             // midshopCount
             // 
-            this.midshopCount.Location = new System.Drawing.Point(12, 326);
+            this.midshopCount.Location = new System.Drawing.Point(12, 389);
             this.midshopCount.Mask = "00000";
             this.midshopCount.Name = "midshopCount";
             this.midshopCount.Size = new System.Drawing.Size(69, 20);
@@ -611,11 +615,55 @@
             this.randomizeBaseSeed.Text = "Randomize";
             this.randomizeBaseSeed.UseVisualStyleBackColor = true;
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(12, 136);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(77, 15);
+            this.label24.TabIndex = 54;
+            this.label24.Text = "Surface level";
+            // 
+            // surfaceLevel
+            // 
+            this.surfaceLevel.Location = new System.Drawing.Point(12, 154);
+            this.surfaceLevel.Mask = "00000";
+            this.surfaceLevel.Name = "surfaceLevel";
+            this.surfaceLevel.Size = new System.Drawing.Size(69, 20);
+            this.surfaceLevel.TabIndex = 53;
+            this.surfaceLevel.Text = "15";
+            this.surfaceLevel.ValidatingType = typeof(int);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(123, 136);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(77, 15);
+            this.label25.TabIndex = 56;
+            this.label25.Text = "Map flatness";
+            // 
+            // flatness
+            // 
+            this.flatness.Location = new System.Drawing.Point(123, 154);
+            this.flatness.Mask = "00000";
+            this.flatness.Name = "flatness";
+            this.flatness.Size = new System.Drawing.Size(69, 20);
+            this.flatness.TabIndex = 55;
+            this.flatness.Text = "10";
+            this.flatness.ValidatingType = typeof(int);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(974, 662);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.flatness);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.surfaceLevel);
             this.Controls.Add(this.randomizeBaseSeed);
             this.Controls.Add(this.baseSizeY);
             this.Controls.Add(this.label23);
@@ -727,6 +775,10 @@
         public System.Windows.Forms.MaskedTextBox baseSizeX;
         public System.Windows.Forms.MaskedTextBox baseSizeY;
         public System.Windows.Forms.CheckBox randomizeBaseSeed;
+        private System.Windows.Forms.Label label24;
+        public System.Windows.Forms.MaskedTextBox surfaceLevel;
+        private System.Windows.Forms.Label label25;
+        public System.Windows.Forms.MaskedTextBox flatness;
     }
 }
 

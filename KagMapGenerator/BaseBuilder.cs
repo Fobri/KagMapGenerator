@@ -15,6 +15,11 @@ namespace KagMapGenerator
         const int RIGHT = 2;
         const int UP = 4;
         const int DOWN = 8;
+        Dictionary<Color, Color> doorColorConversion = new Dictionary<Color, Color>()
+        {
+            { Color.FromArgb(128, 208, 64, 208), Color.FromArgb(129, 208, 64, 208) },
+            { Color.FromArgb(128, 208, 32, 208), Color.FromArgb(129, 208, 32, 208) }
+        };
         static readonly List<BuildingBlock> buildingBlocks = new List<BuildingBlock>() {
             new BuildingBlock(new Color[,]
             {
@@ -187,7 +192,10 @@ namespace KagMapGenerator
                             var pixel = map.GetPixel(sampleX, sampleY);
                             if (pixel == Data.colors["blueflag"] || pixel == Data.colors["Dirt"] || pixel == Data.colors["Stone"] ||
                                 pixel == Data.colors["Thick Stone"] || pixel == Data.colors["Blue Spawn (Main)"] || pixel == Data.colors["Bedrock"]) continue;
+
                             map.SetPixel(sampleX, sampleY, data[mapY, mapX]);
+                            var col = doorColorConversion.ContainsKey(data[mapY, mapX]) ? doorColorConversion[data[mapY, mapX]] : data[mapY, mapX];
+                            map.SetPixel(map.Width - sampleX - 1, sampleY, col);
                         }
                     }
                 }

@@ -64,9 +64,11 @@ namespace KagMapGenerator
             int treeInterval = int.Parse(window.treeInterval.Text);
             int tentEdgeDst = int.Parse(window.tentEdgeDst.Text);
             int midshopCount = int.Parse(window.midshopCount.Text);
+            int surfaceLevel = int.Parse(window.surfaceLevel.Text);
+            float flatness = int.Parse(window.flatness.Text) / 10f;
             //int multiplier = originalImageSize / xSize;
             //window.mapImage.Size = new Size(xSize * multiplier, ySize * multiplier);
-            var map = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval, bedrockDepth, bedrockRoughness, treeCount, treeInterval, tentEdgeDst, midshopCount, out int2 lastFlagPos);
+            var map = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval, bedrockDepth, bedrockRoughness, treeCount, treeInterval, tentEdgeDst, midshopCount, surfaceLevel, flatness, out int2 lastFlagPos);
             if (window.generateBase.Checked)
             {
                 if (randomBaseSeed)
