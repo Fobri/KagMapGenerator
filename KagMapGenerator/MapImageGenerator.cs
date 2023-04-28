@@ -125,7 +125,7 @@ namespace KagMapGenerator
                         }
                         if (!addedBedrock)
                         {
-                            noiseGenerator.SetFrequency(freq);
+                            noiseGenerator.SetFrequency(freq * 4);
                             if(SampleNoise(x+5321, y+9112) > 0.4f)
                             {
                                 noiseGenerator.SetFrequency(freq * 10f);

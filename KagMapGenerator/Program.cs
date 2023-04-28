@@ -26,6 +26,7 @@ namespace KagMapGenerator
             window.genButton.MouseClick += Generate;
             generator = new MapImageGenerator();
             originalImageSize = window.mapImage.Size.Width;
+            Generate(false, false);
             Application.Run(window);
         }
 
@@ -37,10 +38,44 @@ namespace KagMapGenerator
         public static void Generate(bool randomSeed, bool randomBaseSeed)
         {
 
-            var xSize = int.Parse(window.xSize.Text);
-            var ySize = int.Parse(window.ySize.Text);
-            float freq = int.Parse(window.frequencyInput.Text) / 1000f;
-            float steepness = int.Parse(window.steepnessInput.Text);
+            if (!int.TryParse(window.xSize.Text, out int xSize)) return;
+
+            if (!int.TryParse(window.ySize.Text, out int ySize)) return;
+            float freq = 0;
+            if (!float.TryParse(window.frequencyInput.Text, out freq)) return;
+            freq /= 1000f;
+            float steepness = 0;
+            if (!float.TryParse(window.steepnessInput.Text, out steepness)) return;
+            bool cave = window.cave.Checked;
+            bool island = window.island.Checked;
+            int grassChance = 0;
+            if (!int.TryParse(window.grassChance.Text, out grassChance)) return;
+            int redzone = 0;
+            if (!int.TryParse(window.redzone.Text, out redzone)) return;
+            int flagCount = 0;
+            if (!int.TryParse(window.flagCount.Text, out flagCount)) return;
+            int flagInterval = 0;
+            if (!int.TryParse(window.flagInterval.Text, out flagInterval)) return;
+            int stoneChance = 0;
+            if (!int.TryParse(window.stoneChance.Text, out stoneChance)) return;
+            int bedrockDepth = 0;
+            if (!int.TryParse(window.bedrockDepth.Text, out bedrockDepth)) return;
+            float bedrockRoughness = 0;
+            if (!float.TryParse(window.bedrockRoughness.Text, out bedrockRoughness)) return;
+            bedrockRoughness /= 50f;
+            int treeCount = 0;
+            if (!int.TryParse(window.treeCount.Text, out treeCount)) return;
+            int treeInterval = 0;
+            if (!int.TryParse(window.treeInterval.Text, out treeInterval)) return;
+            int tentEdgeDst = 0;
+            if (!int.TryParse(window.tentEdgeDst.Text, out tentEdgeDst)) return;
+            int midshopCount = 0;
+            if (!int.TryParse(window.midshopCount.Text, out midshopCount)) return;
+            int surfaceLevel = 0;
+            if (!int.TryParse(window.surfaceLevel.Text, out surfaceLevel)) return;
+            float flatness = 0;
+            if (!float.TryParse(window.flatness.Text, out flatness)) return;
+            flatness /= 10f;
             int seed = 0;
             if (randomSeed)
             {
@@ -49,23 +84,8 @@ namespace KagMapGenerator
             }
             else
             {
-                seed = int.Parse(window.seedText.Text);
+                if (!int.TryParse(window.seedText.Text, out seed)) return;
             }
-            bool cave = window.cave.Checked;
-            bool island = window.island.Checked;
-            int grassChance = int.Parse(window.grassChance.Text);
-            int redzone = int.Parse(window.redzone.Text);
-            int flagCount = int.Parse(window.flagCount.Text);
-            int flagInterval = int.Parse(window.flagInterval.Text);
-            int stoneChance = int.Parse(window.stoneChance.Text);
-            int bedrockDepth = int.Parse(window.bedrockDepth.Text);
-            float bedrockRoughness = int.Parse(window.bedrockRoughness.Text) / 50f;
-            int treeCount = int.Parse(window.treeCount.Text);
-            int treeInterval = int.Parse(window.treeInterval.Text);
-            int tentEdgeDst = int.Parse(window.tentEdgeDst.Text);
-            int midshopCount = int.Parse(window.midshopCount.Text);
-            int surfaceLevel = int.Parse(window.surfaceLevel.Text);
-            float flatness = int.Parse(window.flatness.Text) / 10f;
             //int multiplier = originalImageSize / xSize;
             //window.mapImage.Size = new Size(xSize * multiplier, ySize * multiplier);
             var map = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval, bedrockDepth, bedrockRoughness, treeCount, treeInterval, tentEdgeDst, midshopCount, surfaceLevel, flatness, out int2 lastFlagPos);
@@ -78,10 +98,14 @@ namespace KagMapGenerator
                 }
                 else
                 {
-                    seed = int.Parse(window.baseSeed.Text);
+                    if (!int.TryParse(window.baseSeed.Text, out seed)) return;
                 }
                 BaseBuilder baseBuilder = new BaseBuilder();
-                baseBuilder.Build(map, lastFlagPos.x, lastFlagPos.y, int.Parse(window.baseSizeX.Text), int.Parse(window.baseSizeY.Text), seed);
+                int baseSizeX = 0;
+                if (!int.TryParse(window.baseSizeX.Text, out baseSizeX)) return;
+                int baseSizeY = 0;
+                if (!int.TryParse(window.baseSizeY.Text, out baseSizeY)) return;
+                baseBuilder.Build(map, lastFlagPos.x, lastFlagPos.y, baseSizeX, baseSizeY, seed);
             }
             window.mapImage.Image = map;
             window.mapImage.Update();

@@ -163,5 +163,64 @@ namespace KagMapGenerator
         {
             Program.Generate(false,false);
         }
+
+
+        private void frequencyInput_Validated(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+        }
+
+        private void frequencyInput_TextChanged_1(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+        }
+
+        private void surfaceLevel_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void flatness_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void island_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void cave_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void generateBase_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void randomizeBaseSeed_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void baseSizeX_TextChanged(object sender, EventArgs e)
+        {
+            Program.Generate(false, false);
+
+        }
+
+        private void baseSizeY_TextChanged(object sender, EventArgs e)
+        {
+
+            Program.Generate(false, false);
+        }
     }
 }

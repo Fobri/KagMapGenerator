@@ -94,7 +94,7 @@
             this.mapImage.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.mapImage.Location = new System.Drawing.Point(230, 12);
             this.mapImage.Name = "mapImage";
-            this.mapImage.Size = new System.Drawing.Size(736, 518);
+            this.mapImage.Size = new System.Drawing.Size(747, 515);
             this.mapImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.mapImage.TabIndex = 0;
             this.mapImage.TabStop = false;
@@ -192,7 +192,7 @@
             this.frequencyInput.TabIndex = 11;
             this.frequencyInput.Text = "15";
             this.frequencyInput.ValidatingType = typeof(int);
-            this.frequencyInput.TextChanged += new System.EventHandler(this.frequencyInput_TextChanged);
+            this.frequencyInput.TextChanged += new System.EventHandler(this.frequencyInput_TextChanged_1);
             // 
             // label4
             // 
@@ -234,6 +234,7 @@
             this.cave.TabIndex = 15;
             this.cave.Text = "Cave";
             this.cave.UseVisualStyleBackColor = true;
+            this.cave.CheckedChanged += new System.EventHandler(this.cave_CheckedChanged);
             // 
             // label6
             // 
@@ -323,7 +324,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(887, 627);
+            this.button1.Location = new System.Drawing.Point(898, 624);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 24;
@@ -340,6 +341,7 @@
             this.island.TabIndex = 25;
             this.island.Text = "Island";
             this.island.UseVisualStyleBackColor = true;
+            this.island.CheckedChanged += new System.EventHandler(this.island_CheckedChanged);
             // 
             // label10
             // 
@@ -533,7 +535,7 @@
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(229, 555);
+            this.label21.Location = new System.Drawing.Point(234, 552);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(147, 24);
             this.label21.TabIndex = 45;
@@ -543,19 +545,20 @@
             // 
             this.generateBase.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.generateBase.AutoSize = true;
-            this.generateBase.Location = new System.Drawing.Point(233, 582);
+            this.generateBase.Location = new System.Drawing.Point(238, 579);
             this.generateBase.Name = "generateBase";
             this.generateBase.Size = new System.Drawing.Size(56, 17);
             this.generateBase.TabIndex = 46;
             this.generateBase.Text = "Active";
             this.generateBase.UseVisualStyleBackColor = true;
+            this.generateBase.CheckedChanged += new System.EventHandler(this.generateBase_CheckedChanged);
             // 
             // label22
             // 
             this.label22.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(230, 599);
+            this.label22.Location = new System.Drawing.Point(235, 596);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(36, 15);
             this.label22.TabIndex = 48;
@@ -564,7 +567,7 @@
             // baseSeed
             // 
             this.baseSeed.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.baseSeed.Location = new System.Drawing.Point(266, 599);
+            this.baseSeed.Location = new System.Drawing.Point(271, 596);
             this.baseSeed.Mask = "00000";
             this.baseSeed.Name = "baseSeed";
             this.baseSeed.Size = new System.Drawing.Size(36, 20);
@@ -577,7 +580,7 @@
             this.label23.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(230, 617);
+            this.label23.Location = new System.Drawing.Point(235, 614);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(60, 15);
             this.label23.TabIndex = 50;
@@ -586,34 +589,38 @@
             // baseSizeX
             // 
             this.baseSizeX.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.baseSizeX.Location = new System.Drawing.Point(230, 635);
+            this.baseSizeX.Location = new System.Drawing.Point(235, 632);
             this.baseSizeX.Mask = "00000";
             this.baseSizeX.Name = "baseSizeX";
             this.baseSizeX.Size = new System.Drawing.Size(34, 20);
             this.baseSizeX.TabIndex = 49;
             this.baseSizeX.Text = "5";
             this.baseSizeX.ValidatingType = typeof(int);
+            this.baseSizeX.TextChanged += new System.EventHandler(this.baseSizeX_TextChanged);
             // 
             // baseSizeY
             // 
             this.baseSizeY.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.baseSizeY.Location = new System.Drawing.Point(270, 634);
+            this.baseSizeY.Location = new System.Drawing.Point(275, 631);
             this.baseSizeY.Mask = "00000";
             this.baseSizeY.Name = "baseSizeY";
             this.baseSizeY.Size = new System.Drawing.Size(34, 20);
             this.baseSizeY.TabIndex = 51;
             this.baseSizeY.Text = "10";
             this.baseSizeY.ValidatingType = typeof(int);
+            this.baseSizeY.TextChanged += new System.EventHandler(this.baseSizeY_TextChanged);
             // 
             // randomizeBaseSeed
             // 
+            this.randomizeBaseSeed.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.randomizeBaseSeed.AutoSize = true;
-            this.randomizeBaseSeed.Location = new System.Drawing.Point(308, 600);
+            this.randomizeBaseSeed.Location = new System.Drawing.Point(313, 597);
             this.randomizeBaseSeed.Name = "randomizeBaseSeed";
             this.randomizeBaseSeed.Size = new System.Drawing.Size(79, 17);
             this.randomizeBaseSeed.TabIndex = 52;
             this.randomizeBaseSeed.Text = "Randomize";
             this.randomizeBaseSeed.UseVisualStyleBackColor = true;
+            this.randomizeBaseSeed.CheckedChanged += new System.EventHandler(this.randomizeBaseSeed_CheckedChanged);
             // 
             // label24
             // 
@@ -634,6 +641,7 @@
             this.surfaceLevel.TabIndex = 53;
             this.surfaceLevel.Text = "15";
             this.surfaceLevel.ValidatingType = typeof(int);
+            this.surfaceLevel.TextChanged += new System.EventHandler(this.surfaceLevel_TextChanged);
             // 
             // label25
             // 
@@ -654,12 +662,13 @@
             this.flatness.TabIndex = 55;
             this.flatness.Text = "10";
             this.flatness.ValidatingType = typeof(int);
+            this.flatness.TextChanged += new System.EventHandler(this.flatness_TextChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 662);
+            this.ClientSize = new System.Drawing.Size(985, 659);
             this.Controls.Add(this.label25);
             this.Controls.Add(this.flatness);
             this.Controls.Add(this.label24);
