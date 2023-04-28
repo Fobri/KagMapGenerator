@@ -191,7 +191,7 @@ namespace KagMapGenerator
                             if (sampleX < 0 || sampleY < 0 || sampleX > map.Width - 1 || sampleY > map.Height - 1) continue;
                             var pixel = map.GetPixel(sampleX, sampleY);
                             if (pixel == Data.colors["blueflag"] || pixel == Data.colors["Dirt"] || pixel == Data.colors["Stone"] ||
-                                pixel == Data.colors["Thick Stone"] || pixel == Data.colors["Blue Spawn (Main)"] || pixel == Data.colors["Bedrock"]) continue;
+                                pixel == Data.colors["Thick Stone"] || pixel == Data.colors["Blue Spawn (Main)"] || pixel == Data.colors["Bedrock"] || pixel == Data.colors["redbarrier"]) continue;
 
                             map.SetPixel(sampleX, sampleY, data[mapY, mapX]);
                             var col = doorColorConversion.ContainsKey(data[mapY, mapX]) ? doorColorConversion[data[mapY, mapX]] : data[mapY, mapX];
