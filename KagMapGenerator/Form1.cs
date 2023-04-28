@@ -101,67 +101,67 @@ namespace KagMapGenerator
 
         private void steepnessInput_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void frequencyInput_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void stoneChance_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void grassChance_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void bedrockRoughness_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void bedrockDepth_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void treeInterval_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void treeCount_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void midshopCount_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void flagInterval_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void flagCount_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void redzone_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
 
         private void tentEdgeDst_TextChanged(object sender, EventArgs e)
         {
-            Program.Generate(false);
+            Program.Generate(false,false);
         }
     }
 }

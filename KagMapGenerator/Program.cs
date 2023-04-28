@@ -31,10 +31,10 @@ namespace KagMapGenerator
 
         static void Generate(object sender, EventArgs e)
         {
-            Generate(window.randomSeed.Checked);
+            Generate(window.randomSeed.Checked, window.randomizeBaseSeed.Checked);
         }
 
-        public static void Generate(bool randomSeed)
+        public static void Generate(bool randomSeed, bool randomBaseSeed)
         {
 
             var xSize = int.Parse(window.xSize.Text);
@@ -66,7 +66,22 @@ namespace KagMapGenerator
             int midshopCount = int.Parse(window.midshopCount.Text);
             //int multiplier = originalImageSize / xSize;
             //window.mapImage.Size = new Size(xSize * multiplier, ySize * multiplier);
-            window.mapImage.Image = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval, bedrockDepth, bedrockRoughness, treeCount, treeInterval, tentEdgeDst, midshopCount);
+            var map = generator.GetMapImage(xSize, ySize, freq, steepness, seed, cave, island, grassChance, stoneChance, redzone, flagCount, flagInterval, bedrockDepth, bedrockRoughness, treeCount, treeInterval, tentEdgeDst, midshopCount, out int2 lastFlagPos);
+            if (window.generateBase.Checked)
+            {
+                if (randomBaseSeed)
+                {
+                    seed = new Random().Next(0, 99999);
+                    window.baseSeed.Text = seed.ToString();
+                }
+                else
+                {
+                    seed = int.Parse(window.baseSeed.Text);
+                }
+                BaseBuilder baseBuilder = new BaseBuilder();
+                baseBuilder.Build(map, lastFlagPos.x, lastFlagPos.y, int.Parse(window.baseSizeX.Text), int.Parse(window.baseSizeY.Text), seed);
+            }
+            window.mapImage.Image = map;
             window.mapImage.Update();
         }
     }
