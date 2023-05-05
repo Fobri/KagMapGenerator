@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace KagMapGenerator
 {
@@ -20,13 +21,24 @@ namespace KagMapGenerator
             { Color.FromArgb(128, 208, 64, 208), Color.FromArgb(129, 208, 64, 208) },
             { Color.FromArgb(128, 208, 32, 208), Color.FromArgb(129, 208, 32, 208) }
         };
-        static readonly List<BuildingBlock> buildingBlocks = new List<BuildingBlock>() {
+        static List<BuildingBlock> buildingBlocks;
+        public static void SetBlocks(ListView blockList)
+        {
+            buildingBlocks = new List<BuildingBlock>();
+            for(int i = 0; i < blockList.Items.Count; i++)
+            {
+                var block = blockList.Items[i] as BaseBlockListItem;
+                buildingBlocks.Add(new BuildingBlock(block.GetColorArray(),
+                    (block.Left ? LEFT : 0) | (block.Right ? RIGHT : 0) | (block.Up ? UP : 0) | (block.Down ? DOWN : 0), block.Weight, block.Name));
+            }
+        }
+        /*static readonly List<BuildingBlock> buildingBlocks = new List<BuildingBlock>() {
             new BuildingBlock(new Color[,]
             {
-                { Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96) },
-                { Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96) },
-                { Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96) },
-                { Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96) }
+                { Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200) },
+                { Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200) },
+                { Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200) },
+                { Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200), Color.FromArgb(255,49,52,18), Color.FromArgb(255,165,189,200) }
             }, 0, 5, "solid"),
             new BuildingBlock(new Color[,]
             {
@@ -76,7 +88,7 @@ namespace KagMapGenerator
                 { Color.FromArgb(255,100,113,96), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,49,52,18), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,100,113,96) },
                 { Color.FromArgb(128,208,64,208), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,100,113,96) },
                 { Color.FromArgb(128,208,32,208), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,49,52,18), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,100,113,96) }
-            }, RIGHT | UP, 3, "basic5"),
+            }, LEFT | UP, 3, "basic5"),
             new BuildingBlock(new Color[,]
             {
                 { Color.FromArgb(255,100,113,96), Color.FromArgb(128,208,64,208), Color.FromArgb(128,208,64,208), Color.FromArgb(255,100,113,96), Color.FromArgb(128,208,32,208), Color.FromArgb(128,208,32,208), Color.FromArgb(255,100,113,96) },
@@ -97,7 +109,7 @@ namespace KagMapGenerator
                 { Color.FromArgb(255,100,113,96), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,100,113,96) },
                 { Color.FromArgb(128,208,64,208), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(128,208,64,208) },
                 { Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(255,49,52,18), Color.FromArgb(128,208,64,208) }
-            }, LEFT | RIGHT, 3, "basic8"),
+            }, LEFT | RIGHT | DOWN, 3, "basic8"),
             new BuildingBlock(new Color[,]
             {
                 { Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96), Color.FromArgb(255,100,113,96) },
@@ -119,7 +131,7 @@ namespace KagMapGenerator
                 { Color.FromArgb(255,100,113,96), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,100,113,96) },
                 { Color.FromArgb(255,100,113,96), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,49,52,18), Color.FromArgb(255,85,42,17), Color.FromArgb(255,85,42,17), Color.FromArgb(255,100,113,96) }
             }, UP | DOWN, 3, "basic11")
-        };
+        };*/
         public Cell[,] entropyField;
         Random rng;
         HashSet<int2> wfcSet = new HashSet<int2>();
@@ -128,6 +140,16 @@ namespace KagMapGenerator
         int maxBlockWeight;
         public void Build(Bitmap map, int flagPosX, int flagPosY, int baseSizeX, int baseSizeY, int seed)
         {
+            if (buildingBlocks == null)
+            {
+                MessageBox.Show("Add building blocks on the other tab to use base generation");
+                return;
+            }
+            if(!buildingBlocks.Exists(s => s.name == "flag_upper") || !buildingBlocks.Exists(s => s.name == "flag_lower"))
+            {
+                MessageBox.Show("Building blocks must have blocks called 'flag_lower' and 'flag_upper'");
+                return;
+            }
             rng = new Random(seed);
             entropyField = new Cell[baseSizeX, baseSizeY];
             sizeX = baseSizeX;
@@ -160,7 +182,7 @@ namespace KagMapGenerator
                         entropyField[x, y].directionMask = byte.MaxValue;
 
                         wfcSet.Add(new int2(x, y));
-                        wfcSet.Add(new int2(x, y-1));
+                        //wfcSet.Add(new int2(x, y-1));
                     }
                     else
                     {
@@ -176,7 +198,7 @@ namespace KagMapGenerator
                 {
                     int blockIdx = entropyField[x, y].blockIndex;
                     //Debug.Print(entropyField[x, y].directionMask.ToString());
-                    if (blockIdx == -1) continue;
+                    if (blockIdx == -1) blockIdx = 0;
 
                     var data = buildingBlocks[blockIdx].data;
 
@@ -219,6 +241,7 @@ namespace KagMapGenerator
                 //Done
                 return;
             }
+            Debug.Print(entropyField[pos.x, pos.y].directionMask.ToString());
             wfcSet.Remove(pos);
             if (entropyField[pos.x, pos.y].blockIndex == -1)
             {
@@ -232,10 +255,9 @@ namespace KagMapGenerator
         {
             int directionMask = entropyField[x, y].directionMask;
             entropyField[x, y].directionMask = byte.MaxValue;
-            var possibleBlocks = buildingBlocks.FindAll(s => (s.directionFlags & directionMask) == directionMask);
-            if (possibleBlocks.Count == 0) return 0;
+            var possibleBlocks = buildingBlocks.FindAll(s => ((s.directionFlags & directionMask) == directionMask) && s.weight > 0);
             //Get max direction mask hit count
-            int maxDirHitCount = 0;
+            /*int maxDirHitCount = 0;
             for (int i = 0; i < possibleBlocks.Count; i++) { 
 
                 int hitCount = MaskHitCount((byte)possibleBlocks[i].directionFlags, (byte)directionMask);
@@ -247,9 +269,21 @@ namespace KagMapGenerator
             if(bestMaskHitCounts.Count() == 1)
             {
                 return buildingBlocks.IndexOf(bestMaskHitCounts.First());
-            }
+            }*/
             //todo randomness from weights
-            return buildingBlocks.IndexOf(bestMaskHitCounts.ElementAt(rng.Next(0,bestMaskHitCounts.Count())));
+            possibleBlocks.Sort();
+            int sum = possibleBlocks.Sum(s => s.weight);
+            double targetSum = rng.NextDouble() * sum;
+            int curSum = 0;
+            foreach(var item in possibleBlocks)
+            {
+                curSum += item.weight;
+                if(curSum >= targetSum)
+                {
+                    return buildingBlocks.IndexOf(item);
+                }
+            }
+            return buildingBlocks.IndexOf(possibleBlocks.Last());
         }
 
         public void Propagate(BuildingBlock block, int2 pos)

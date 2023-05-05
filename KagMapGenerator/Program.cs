@@ -37,7 +37,6 @@ namespace KagMapGenerator
 
         public static void Generate(bool randomSeed, bool randomBaseSeed)
         {
-
             if (!int.TryParse(window.xSize.Text, out int xSize)) return;
 
             if (!int.TryParse(window.ySize.Text, out int ySize)) return;

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseBlockListItem.cs" />
     <Compile Include="BaseBuilder.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="FastNoiseLite.cs" />
